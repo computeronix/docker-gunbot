@@ -1,8 +1,8 @@
 # Dockerized Gunbot - POC - Unoffical
-> A containerized version of Gunbot.com.  Autobuilds the latest release and allows for an entire Gunbot.com to be setup in less than 1 minute.
-> More capabilities and features to come - ALPHA - Proof of Concept release
-> Requires Gunbot license which can be purchased from any of the approved [Gunbot resellers](https://gunthy.org/resellers/).
-> *Note: Data loss may occur in the current state --> first feature being vetted and worked on to allow for persistant data
+>* A containerized version of Gunbot.com.  Autobuilds the latest release and allows for an entire Gunbot.com to be setup in less than 1 minute.
+>* More capabilities and features to come - ALPHA - Proof of Concept release
+>* Requires Gunbot license which can be purchased from any of the approved [Gunbot resellers](https://gunthy.org/resellers/).
+>* Note: Data loss may occur in the current state --> first feature being vetted and worked on to allow for persistant data
 
 ## Table of contents
 * [General info](#general-info)
