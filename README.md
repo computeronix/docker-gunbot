@@ -1,4 +1,43 @@
-ALPHA - first release - protoype (will clean up readme)
+# Dockerized Gunbot - POC - Unoffical
+> A containerized version of Gunbot.com.  Autobuilds the latest release and allows for an entire Gunbot.com to be setup in less than 1 minute.
+> More capabilities and features to come - ALPHA - Proof of Concept release
+> Requires Gunbot license which can be purchased from any of the approved [Gunbot resellers](https://gunthy.org/resellers/).
+> *Note: Data loss may occur in the current state --> first feature being vetted and worked on to allow for persistant data
+
+## Table of contents
+* [General info](#general-info)
+* [Screenshots](#screenshots)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Features](#features)
+
+## General info
+Add more general information about project. What the purpose of the project is? Motivation?
+
+## Screenshots
+![Example screenshot](./img/screenshot.png)
+
+## Technologies
+* Tech 1 - version 1.0
+* Tech 2 - version 2.0
+* Tech 3 - version 3.0
+
+## Setup
+Describe how to install / setup your local environement / add link to demo version.
+
+## Code Examples
+Show examples of usage:
+`put-your-code-here`
+
+## Features
+List of features ready and TODOs for future development
+* Awesome feature 1
+* Awesome feature 2
+* Awesome feature 3
+
+Roadmap:
+* Wow improvement to be done 1
+* Wow improvement to be done 2
 
 Sets up gunbot (with systemctl to run in the background) and includes chrony to keep time
 
