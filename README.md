@@ -36,7 +36,7 @@ List of features ready and TODOs for future development
 * Awesome feature 3
 
 Roadmap:
-* Wow improvement to be done 1
+* mounting volume support is coming soon to then look for data files and take action from there -v "/full/path/host/gunbot/files:/opt/gunbot" -> right now clears the folder also will need to de-couple gunbot processes from data
 * Wow improvement to be done 2
 
 Sets up gunbot (with systemctl to run in the background) and includes chrony to keep time
