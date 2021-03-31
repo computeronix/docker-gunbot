@@ -51,4 +51,4 @@ connect other add-ins from marketplace either in a container or other containers
 
 Add more distros (alpine / windows / macos support)
 
-Check for beta releases and add a beta channel
+Check for beta releases and add a beta channel 
