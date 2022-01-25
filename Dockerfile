@@ -1,5 +1,3 @@
-ARG DISTRO="ubuntu"
-ARG VERSION="latest"
 ARG GUNBOTVERSION="latest"
 ARG GITHUBOWNER="GuntharDeNiro"
 ARG GITHUBREPO="BTCT"
@@ -49,7 +47,7 @@ RUN apk update \
   && printf "stdout_logfile=/dev/stdout\n" >> supervisor/service_script.conf \
   && printf "stdout_logfile_maxbytes=0\n" >> supervisor/service_script.conf
 
-FROM ${DISTRO}:${VERSION}
+FROM alpine:latest
 ARG DISTRO
 ARG VERSION
 ARG GUNBOTVERSION
@@ -58,7 +56,7 @@ ARG GUNBOTPORT
 LABEL \
   maintainer="computeronix" \
   website="https://aka.wf/ai6" \
-  description="docker file ${DISTRO} - ${VERSION}, containerized gunbot - ${GUNBOTVERSION}"
+  description="docker file alpine, containerized gunbot - ${GUNBOTVERSION}"
 
 RUN apt-get update \
   && apt-get -y install supervisor chrony rsync fontconfig \
