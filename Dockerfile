@@ -22,6 +22,7 @@ RUN apk update \
   && printf "commonName = localhost\n" >> ssl.config \
   && openssl req -config ssl.config -newkey rsa:2048 -nodes -keyout gunbot/localhost.key -x509 -days 365 -out gunbot/localhost.crt \
   && contents="$(jq '.GUI.https = true' gunbot/config.js)" \
+  && contents="$(jq '.GUI.https = true' gunbot/config.js)" \
   && echo "${contents}" > gunbot/config.js \
   && printf "#!/bin/sh\n" > gunbot/startup.sh \
   && printf "chronyd -d || :\n" >> gunbot/startup.sh \
@@ -48,4 +49,4 @@ RUN apk update \
   && chmod +x /opt/gunbot/startup.sh
 
 EXPOSE ${GUNBOTPORT}
-CMD ["/opt/gunbot/startup.sh"]
+CMD ["sh","/opt/gunbot/startup.sh"]
