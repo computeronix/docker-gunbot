@@ -17,10 +17,10 @@ add parameter -p 5000:5000
 Support persistent data
 add parameter -v "/host/directory/to/volume:/mnt/gunbot"
 
-docker run -d computeronix/docker-gunbot:latest
+docker run -d computeronix/gunbot:latest
 
 Advanced users:
-add sh to override startup script docker run -it computeronix/docker-gunbot:latest sh
+add sh to override startup script docker run -it computeronix/gunbot:latest sh
 
 If firing manually:
 Run the file /opt/gunbot/startup.sh when ready to fire off the bot
