@@ -21,10 +21,53 @@ RUN apk update \
   && printf "[req_distinguished_name]\n" >> ssl.config \
   && printf "commonName = localhost\n" >> ssl.config \
   && openssl req -config ssl.config -newkey rsa:2048 -nodes -keyout gunbot/localhost.key -x509 -days 365 -out gunbot/localhost.crt \
-  && contents="$(jq '.GUI.https = true' gunbot/config.js)" \
-  && contents="$(jq '.GUI.https = true' gunbot/config.js)" \
-  && echo "${contents}" > gunbot/config.js \
   && printf "#!/bin/sh\n" > gunbot/startup.sh \
+  && printf "if [ ! -d /mnt/gunbot ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir /mnt/gunbot\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d /mnt/gunbot/json ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir /mnt/gunbot/json\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/json /opt/gunbot/json\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d /mnt/gunbot/logs ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir /mnt/gunbot/logs\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/logs /opt/gunbot/logs\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d /mnt/gunbot/backups ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir /mnt/gunbot/backups\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/backups /opt/gunbot/backups\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d /mnt/gunbot/customStrategies ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir /mnt/gunbot/customStrategies\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/customStrategies /opt/gunbot/customStrategies\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f /mnt/gunbot/config.js ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp /opt/gunbot/config.js /mnt/gunbot/config.js\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/config.js /opt/gunbot/config.js\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f /mnt/gunbot/UTAconfig.json ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp /opt/gunbot/UTAconfig.json /mnt/gunbot/UTAconfig.json\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/UTAconfig.json /opt/gunbot/UTAconfig.json\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f /mnt/gunbot/autoconfig.json ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp /opt/gunbot/autoconfig.json /mnt/gunbot/autoconfig.json\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/autoconfig.json /opt/gunbot/autoconfig.json\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f /mnt/gunbot/gunbotgui.db ]; then \n" >> gunbot/startup.sh \
+  && printf "	touch /opt/gunbot/gunbotgui.db\n" >> gunbot/startup.sh \
+  && printf "	cp /opt/gunbot/gunbotgui.db /mnt/gunbot/gunbotgui.db\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/gunbotgui.db /opt/gunbot/gunbotgui.db\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f /mnt/gunbot/new_gui.sqlite ]; then \n" >> gunbot/startup.sh \
+  && printf "	touch /opt/gunbot/new_gui.sqlite\n" >> gunbot/startup.sh \
+  && printf "	cp /opt/gunbot/new_gui.sqlite /mnt/gunbot/new_gui.sqlite\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf /mnt/gunbot/new_gui.sqlite /opt/gunbot/new_gui.sqlite\n" >> gunbot/startup.sh \
+  && printf "if [ ! -s /mnt/gunbot/config.js ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp /opt/gunbot/config-js-example.txt /mnt/gunbot/config.js\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "jq '.GUI.https = true' /opt/gunbot/config.js > /tmp/config2.js\n" >> gunbot/startup.sh \
+  && printf "jq '.bot.json_output = \"/opt/gunbot/json\"' /tmp/config2.js > /opt/gunbot/config.js\n" >> gunbot/startup.sh \
   && printf "chronyd -d || :\n" >> gunbot/startup.sh \
   && printf "/opt/gunbot/gunthy-linux\n" >> gunbot/startup.sh
 
@@ -44,7 +87,7 @@ COPY --from=gunbot-builder /tmp/gunbot /opt/gunbot
 WORKDIR /opt/gunbot
 
 RUN apk update \
-  && apk add --no-cache chrony libc6-compat gcompat libstdc++ \
+  && apk add --no-cache chrony libc6-compat gcompat libstdc++ jq \
   && rm -rf /var/lib/apt/lists/* \
   && chmod +x /opt/gunbot/startup.sh
 
