@@ -85,7 +85,6 @@ FROM alpine:latest
 ARG GUNBOTVERSION
 ARG GBINSTALLLOC
 ARG GBPORT
-ENV GUNBOTPORT=${GBPORT}
 ENV GUNBOTLOCATION=${GBINSTALLLOC}
 
 LABEL \
@@ -102,5 +101,5 @@ RUN apk update \
   && rm -rf /var/lib/apt/lists/* \
   && chmod +x "${GBINSTALLLOC}/startup.sh"
 
-EXPOSE ${GUNBOTPORT}
+EXPOSE ${GBPORT}
 CMD ["sh","-c","${GUNBOTLOCATION}/startup.sh"]
