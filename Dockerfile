@@ -1,11 +1,17 @@
 ARG GUNBOTVERSION="latest"
 ARG GITHUBOWNER="GuntharDeNiro"
 ARG GITHUBREPO="BTCT"
+ARG GBINSTALLLOC="/opt/gunbot"
+ARG GBMOUNT="/mnt/gunbot"
+ARG GBPORT=5000
 
 FROM alpine:latest AS gunbot-builder
 ARG GUNBOTVERSION
 ARG GITHUBOWNER
 ARG GITHUBREPO
+ARG GBINSTALLLOC
+ARG GBMOUNT
+ARG GBPORT
 
 WORKDIR /tmp
 
@@ -22,74 +28,79 @@ RUN apk update \
   && printf "commonName = localhost\n" >> ssl.config \
   && openssl req -config ssl.config -newkey rsa:2048 -nodes -keyout gunbot/localhost.key -x509 -days 365 -out gunbot/localhost.crt \
   && printf "#!/bin/sh\n" > gunbot/startup.sh \
-  && printf "if [ ! -d /mnt/gunbot ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir /mnt/gunbot\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d ${GBMOUNT} ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir ${GBMOUNT}\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "if [ ! -d /mnt/gunbot/json ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir /mnt/gunbot/json\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d ${GBMOUNT}/json ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir ${GBMOUNT}/json\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/json /opt/gunbot/json\n" >> gunbot/startup.sh \
-  && printf "if [ ! -d /mnt/gunbot/logs ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir /mnt/gunbot/logs\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/json ${GBINSTALLLOC}/json\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d ${GBMOUNT}/logs ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir ${GBMOUNT}/logs\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/logs /opt/gunbot/logs\n" >> gunbot/startup.sh \
-  && printf "if [ ! -d /mnt/gunbot/backups ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir /mnt/gunbot/backups\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/logs ${GBINSTALLLOC}/logs\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d ${GBMOUNT}/backups ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir ${GBMOUNT}/backups\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/backups /opt/gunbot/backups\n" >> gunbot/startup.sh \
-  && printf "if [ ! -d /mnt/gunbot/customStrategies ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir /mnt/gunbot/customStrategies\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/backups ${GBINSTALLLOC}/backups\n" >> gunbot/startup.sh \
+  && printf "if [ ! -d ${GBMOUNT}/customStrategies ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/customStrategies /opt/gunbot/customStrategies\n" >> gunbot/startup.sh \
-  && printf "if [ ! -f /mnt/gunbot/config.js ]; then \n" >> gunbot/startup.sh \
-  && printf "	cp /opt/gunbot/config.js /mnt/gunbot/config.js\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f ${GBMOUNT}/config.js ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp ${GBINSTALLLOC}/config.js ${GBMOUNT}/config.js\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/config.js /opt/gunbot/config.js\n" >> gunbot/startup.sh \
-  && printf "if [ ! -f /mnt/gunbot/UTAconfig.json ]; then \n" >> gunbot/startup.sh \
-  && printf "	cp /opt/gunbot/UTAconfig.json /mnt/gunbot/UTAconfig.json\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/config.js ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f ${GBMOUNT}/UTAconfig.json ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp ${GBINSTALLLOC}/UTAconfig.json ${GBMOUNT}/UTAconfig.json\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/UTAconfig.json /opt/gunbot/UTAconfig.json\n" >> gunbot/startup.sh \
-  && printf "if [ ! -f /mnt/gunbot/autoconfig.json ]; then \n" >> gunbot/startup.sh \
-  && printf "	cp /opt/gunbot/autoconfig.json /mnt/gunbot/autoconfig.json\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/UTAconfig.json ${GBINSTALLLOC}/UTAconfig.json\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f ${GBMOUNT}/autoconfig.json ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp ${GBINSTALLLOC}/autoconfig.json ${GBMOUNT}/autoconfig.json\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/autoconfig.json /opt/gunbot/autoconfig.json\n" >> gunbot/startup.sh \
-  && printf "if [ ! -f /mnt/gunbot/gunbotgui.db ]; then \n" >> gunbot/startup.sh \
-  && printf "	touch /opt/gunbot/gunbotgui.db\n" >> gunbot/startup.sh \
-  && printf "	cp /opt/gunbot/gunbotgui.db /mnt/gunbot/gunbotgui.db\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/autoconfig.json ${GBINSTALLLOC}/autoconfig.json\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f ${GBMOUNT}/gunbotgui.db ]; then \n" >> gunbot/startup.sh \
+  && printf "	touch ${GBINSTALLLOC}/gunbotgui.db\n" >> gunbot/startup.sh \
+  && printf "	cp ${GBINSTALLLOC}/gunbotgui.db ${GBMOUNT}/gunbotgui.db\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/gunbotgui.db /opt/gunbot/gunbotgui.db\n" >> gunbot/startup.sh \
-  && printf "if [ ! -f /mnt/gunbot/new_gui.sqlite ]; then \n" >> gunbot/startup.sh \
-  && printf "	touch /opt/gunbot/new_gui.sqlite\n" >> gunbot/startup.sh \
-  && printf "	cp /opt/gunbot/new_gui.sqlite /mnt/gunbot/new_gui.sqlite\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/gunbotgui.db ${GBINSTALLLOC}/gunbotgui.db\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f ${GBMOUNT}/new_gui.sqlite ]; then \n" >> gunbot/startup.sh \
+  && printf "	touch ${GBINSTALLLOC}/new_gui.sqlite\n" >> gunbot/startup.sh \
+  && printf "	cp ${GBINSTALLLOC}/new_gui.sqlite ${GBMOUNT}/new_gui.sqlite\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf /mnt/gunbot/new_gui.sqlite /opt/gunbot/new_gui.sqlite\n" >> gunbot/startup.sh \
-  && printf "if [ ! -s /mnt/gunbot/config.js ]; then \n" >> gunbot/startup.sh \
-  && printf "	cp /opt/gunbot/config-js-example.txt /mnt/gunbot/config.js\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/new_gui.sqlite ${GBINSTALLLOC}/new_gui.sqlite\n" >> gunbot/startup.sh \
+  && printf "if [ ! -s ${GBMOUNT}/config.js ]; then \n" >> gunbot/startup.sh \
+  && printf "	cp ${GBINSTALLLOC}/config-js-example.txt ${GBMOUNT}/config.js\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "jq '.GUI.https = true' /opt/gunbot/config.js > /tmp/config2.js\n" >> gunbot/startup.sh \
-  && printf "jq '.bot.json_output = \"/opt/gunbot/json\"' /tmp/config2.js > /opt/gunbot/config.js\n" >> gunbot/startup.sh \
+  && printf "jq '.GUI.https = true' ${GBINSTALLLOC}/config.js > /tmp/config2.js\n" >> gunbot/startup.sh \
+  && printf "jq '.bot.json_output = \"/opt/gunbot/json\"' /tmp/config2.js > /tmp/config3.js\n" >> gunbot/startup.sh \
+  && printf "jq '.GUI.port = ${GBPORT}' /tmp/config3.js > /tmp/config4.js\n" >> gunbot/startup.sh \
+  && printf "jq '.GUI.key = \"localhost.key\"' /tmp/config4.js > /tmp/config5.js\n" >> gunbot/startup.sh \
+  && printf "jq '.GUI.cert = \"localhost.crt\"' /tmp/config5.js > ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
   && printf "chronyd -d || :\n" >> gunbot/startup.sh \
-  && printf "/opt/gunbot/gunthy-linux\n" >> gunbot/startup.sh
+  && printf "${GBINSTALLLOC}/gunthy-linux\n" >> gunbot/startup.sh
+
 
 FROM alpine:latest
-ARG DISTRO
-ARG VERSION
 ARG GUNBOTVERSION
-ENV GUNBOTPORT=5000
+ARG GBINSTALLLOC
+ARG GBPORT
+ENV GUNBOTPORT=${GBPORT}
+ENV GUNBOTLOCATION=${GBINSTALLLOC}
 
 LABEL \
   maintainer="computeronix" \
   website="https://aka.wf/ai6" \
   description="docker file alpine, containerized gunbot - ${GUNBOTVERSION}"
 
-COPY --from=gunbot-builder /tmp/gunbot /opt/gunbot
+COPY --from=gunbot-builder /tmp/gunbot ${GBINSTALLLOC}
 
-WORKDIR /opt/gunbot
+WORKDIR ${GBINSTALLLOC}
 
 RUN apk update \
   && apk add --no-cache chrony libc6-compat gcompat libstdc++ jq \
   && rm -rf /var/lib/apt/lists/* \
-  && chmod +x /opt/gunbot/startup.sh
+  && chmod +x "${GBINSTALLLOC}/startup.sh"
 
 EXPOSE ${GUNBOTPORT}
-CMD ["sh","/opt/gunbot/startup.sh"]
+CMD ["sh","-c","${GUNBOTLOCATION}/startup.sh"]
