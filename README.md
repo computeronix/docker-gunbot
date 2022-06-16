@@ -19,6 +19,9 @@ add parameter -v "/host/directory/to/volume:/mnt/gunbot"
 
 docker run -d computeronix/gunbot:latest
 
+Support restarts if gunbot closes
+add parameter --restart always
+
 Advanced users:
 add sh to override startup script docker run -it computeronix/gunbot:latest sh
 
