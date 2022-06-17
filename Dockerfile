@@ -4,6 +4,9 @@ ARG GITHUBREPO="BTCT"
 ARG GBINSTALLLOC="/opt/gunbot"
 ARG GBMOUNT="/mnt/gunbot"
 ARG GBPORT=5000
+ARG MAINTAINER="Gunthy"
+ARG WEBSITE="https://github.com/GuntharDeNiro/BTCT"
+ARG DESCRIPTION="docker file alpine, containerized gunbot - ${GUNBOTVERSION}"
 
 FROM alpine:latest AS gunbot-builder
 ARG GUNBOTVERSION
@@ -82,15 +85,17 @@ RUN apk update \
 
 
 FROM alpine:latest
-ARG GUNBOTVERSION
+ARG MAINTAINER
+ARG WEBSITE
+ARG DESCRIPTION
 ARG GBINSTALLLOC
 ARG GBPORT
 ENV GUNBOTLOCATION=${GBINSTALLLOC}
 
 LABEL \
-  maintainer="computeronix" \
-  website="https://aka.wf/ai6" \
-  description="docker file alpine, containerized gunbot - ${GUNBOTVERSION}"
+  maintainer="${MAINTAINER}" \
+  website="${WEBSITE}" \
+  description="${DESCRIPTION}"
 
 COPY --from=gunbot-builder /tmp/gunbot ${GBINSTALLLOC}
 
