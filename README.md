@@ -2,6 +2,8 @@
 >* A containerized version of [Gunbot](https://gunthy.org/gunbot/).  Autobuilds the latest release and allows for an entire Gunbot.com to be setup in less than 1 minute.
 >* More capabilities and features to come - ALPHA - Proof of Concept release
 >* Requires Gunbot license which can be purchased from any of the approved [Gunbot resellers](https://gunthy.org/resellers/).
+>* Betas are now supported, simply use "Support persistent data" and put gunthy-linux.zip (latest beta) in the persistent directory
+>* Have your own SSL? imply use "Support persistent data" and put localhost.crt in the persistent directory
 >* Note: Data loss may occur in the current state (in testing)
 
 Default port: 5000 -> expose to host to access can be any port you want
