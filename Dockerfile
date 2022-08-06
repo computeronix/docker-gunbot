@@ -3,6 +3,7 @@ ARG GITHUBOWNER="GuntharDeNiro"
 ARG GITHUBREPO="BTCT"
 ARG GBINSTALLLOC="/opt/gunbot"
 ARG GBMOUNT="/mnt/gunbot"
+ARG GBBETA="gunthy-linux.zip"
 ARG GBPORT=5000
 ARG MAINTAINER="Gunthy"
 ARG WEBSITE="https://github.com/GuntharDeNiro/BTCT"
@@ -13,26 +14,38 @@ ARG GUNBOTVERSION
 ARG GITHUBOWNER
 ARG GITHUBREPO
 ARG GBINSTALLLOC
+ARG GBBETA
 ARG GBMOUNT
 ARG GBPORT
 
 WORKDIR /tmp
 
 RUN apk update \
-  && apk add --no-cache wget jq unzip openssl \
+  && apk add --no-cache wget jq unzip \
   && rm -rf /var/lib/apt/lists/* \
   && wget -q -nv -O gunbot.zip $(wget -q -nv -O- https://api.github.com/repos/${GITHUBOWNER}/${GITHUBREPO}/releases/${GUNBOTVERSION} 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("gunthy_linux")) | .browser_download_url') \
   && unzip -d . gunbot.zip \
   && mv gunthy_linux gunbot \
-  && printf "[req]\n" > ssl.config \
-  && printf "distinguished_name = req_distinguished_name\n" >> ssl.config \
-  && printf "prompt = no\n" >> ssl.config \
-  && printf "[req_distinguished_name]\n" >> ssl.config \
-  && printf "commonName = localhost\n" >> ssl.config \
-  && openssl req -config ssl.config -newkey rsa:2048 -nodes -keyout gunbot/localhost.key -x509 -days 365 -out gunbot/localhost.crt \
+  && printf "[req]\n" > gunbot/ssl.config \
+  && printf "distinguished_name = req_distinguished_name\n" >> gunbot/ssl.config \
+  && printf "prompt = no\n" >> gunbot/ssl.config \
+  && printf "[req_distinguished_name]\n" >> gunbot/ssl.config \
+  && printf "commonName = localhost\n" >> gunbot/ssl.config \
   && printf "#!/bin/sh\n" > gunbot/startup.sh \
   && printf "if [ ! -d ${GBMOUNT} ]; then \n" >> gunbot/startup.sh \
   && printf "	mkdir ${GBMOUNT}\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "if [ -f ${GBMOUNT}/${GBBETA} ]; then \n" >> gunbot/startup.sh \
+  && printf "	unzip -d ${GBMOUNT} ${GBMOUNT}/${GBBETA}\n" >> gunbot/startup.sh \
+  && printf "	mv ${GBMOUNT}/gunthy-linux ${GBINSTALLLOC}\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "if [ -f ${GBMOUNT}/ssl.config ]; then \n" >> gunbot/startup.sh \
+  && printf "	ln -sf ${GBMOUNT}/ssl.config ${GBINSTALLLOC}/ssl.config\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "if [ ! -f ${GBMOUNT}/localhost.crt ]; then \n" >> gunbot/startup.sh \
+  && printf "	openssl req -config ${GBINSTALLLOC}/ssl.config -newkey rsa:2048 -nodes -keyout ${GBINSTALLLOC}/localhost.key -x509 -days 365 -out ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
+  && printf "else\n" >> gunbot/startup.sh \
+  && printf "   ln -sf ${GBMOUNT}/localhost.crt ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
   && printf "if [ ! -d ${GBMOUNT}/json ]; then \n" >> gunbot/startup.sh \
   && printf "	mkdir ${GBMOUNT}/json\n" >> gunbot/startup.sh \
@@ -89,6 +102,7 @@ ARG MAINTAINER
 ARG WEBSITE
 ARG DESCRIPTION
 ARG GBINSTALLLOC
+ARG GBBETA
 ARG GBPORT
 ENV GUNBOTLOCATION=${GBINSTALLLOC}
 
@@ -102,7 +116,7 @@ COPY --from=gunbot-builder /tmp/gunbot ${GBINSTALLLOC}
 WORKDIR ${GBINSTALLLOC}
 
 RUN apk update \
-  && apk add --no-cache chrony libc6-compat gcompat libstdc++ jq \
+  && apk add --no-cache chrony libc6-compat gcompat libstdc++ jq unzip openssl \
   && rm -rf /var/lib/apt/lists/* \
   && chmod +x "${GBINSTALLLOC}/startup.sh"
 
