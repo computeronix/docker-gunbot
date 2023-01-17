@@ -18,9 +18,29 @@ First, Gunbot requires licensing to run and please check out the latest licensin
 To acquire a license, please reach out to a [Gunbot Reseller](https://gunthy.org/resellers/) for more information.
 
 # How to Get Started
-## How to Get Started
 
-fdfsffsfdsfdsfdsd
+## Quick Start Run
+For the automated, quick start route, with your container tool, simply run
+`docker run -d computeronix/gunbot:latest`
+
+Once the image is downloaded, it will run and auto-start in usually about one minute or less.
+
+If the port, by default 5000, is open on the host, and pass-thru the container, go to https://IPofCONTAINER:5000 (localhost could be used if local environment)
+
+>PRO TIP: if this is the first time using Gunbot, or you need assistance setting up the config, open the port and pass-it through the container, then use the Web GUI to set it up. The Gunbot team has done an outstanding job with teh Web GUI!
+>DO NOT forget to use the persistent data option below if you plan to keep your data
+
+Example with persistant data and pass-through
+`docker run -d computeronix/gunbot:latest -p 5000:5000 -v "/host/directory/to/volume:/mnt/gunbot"`
+
+## Advanced Users Run
+
+Interrupt the auto-start with the following command and feel free to do what you want:
+`docker run -it computeronix/gunbot:latest sh`
+
+You will then get shell access to the container and can do what you want.
+
+>Run the file `/opt/gunbot/startup.sh` when ready to fire off the bot
 
 # Defaults
 
@@ -60,4 +80,8 @@ Containers are ephermal, which means when they complete their task, they end, an
 
 >DO NOT use more than one instance to the exact same `/host/directory/to/volume/`, instead make sure you use different directories, for example you could use subdirectories in `/host/directory/to/volume/sub1 sub2 sub3 etc` so multiple running containers will not conflict with each other.
 
-Supported parameter: -v "/host/directory/to/volume:/mnt/gunbot"
+Supported parameter: `-v "/host/directory/to/volume:/mnt/gunbot"`
+
+# Troubleshooting / Feedback / Issues
+
+Submit issues/feedback/feature requests at the linked GitHub site
