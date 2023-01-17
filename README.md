@@ -1,4 +1,5 @@
 
+
 # Gunbot - Unofficial - Docker Container
 
 I have been a [Gunbot](https://gunthy.org/gunbot/) community member since 2019 and decided to help the community out with a need of a standardized containizered app of Gunbot for an easy to run setup.
@@ -80,12 +81,20 @@ Considerable efforts went into securing the GUI, but please understand that achi
 
 Containers are ephermal, which means when they complete their task, they end, and all associated data is lost. If there is data you want to keep as part of the container ending, you will want to mount a directory to preserve this data.  Gunbot Docker container supports persistentance if you decide you want to keep your Gunbot data. To support persistance add the parameter `-v "/host/directory/to/volume:/mnt/gunbot"` and the following directories and files in `/mnt/gunbot` will be redirected and saved to your mounted volume, `/host/directory/to/volume`.
 
-Persistent Gunbot Directories:
+Persistent Gunbot Directories and Files:
 
-- [Under Construction]
-- [Under Construction]
-- [Under Construction]
-- [Under Construction]
+- ssl.config (custom file for creating a self-signed file - docker related)
+- localhost.key (for HTTPS)
+- localhost.crt (for HTTPS)
+- json directory
+- logs directory
+- backups directory
+- customStrategies directory
+- config.js
+- UTAconfig.json
+- autoconfig.json
+- gunbotgui.db
+- new_gui.sqlite
 
 >DO NOT use more than one instance to the exact same `/host/directory/to/volume/`, instead make sure you use different directories, for example you could use subdirectories in `/host/directory/to/volume/sub1 sub2 sub3 etc` so multiple running containers will not conflict with each other.
 
