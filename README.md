@@ -84,4 +84,12 @@ Supported parameter: `-v "/host/directory/to/volume:/mnt/gunbot"`
 
 # Troubleshooting / Feedback / Issues
 
+## Need Help with Gunbot?
+
+Check out the Gunbot Wiki to [Learn how to use Gunbot | Gunbot docs (gunthy.org)](https://wiki.gunthy.org/)
+
+>Gunbot Docker (Container) works exactly the same as if it is running on Linux directly
+
+## Need Help or Have Feedback with Gunbot Docker
+
 Submit issues/feedback/feature requests at the linked GitHub site
