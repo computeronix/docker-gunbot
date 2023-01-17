@@ -1,3 +1,4 @@
+
 # Gunbot - Unofficial - Docker Container
 
 I have been a [Gunbot](https://gunthy.org/gunbot/) community member since 2019 and decided to help the community out with a need of a standardized containizered app of Gunbot for an easy to run setup.
@@ -8,8 +9,9 @@ This setup will allow for a vanilla, Gunbot setup, in less than a minute, allowi
 Key capabilities of this Gunbot container:
 
 - Latest version tag -> auto-builds with the latest stable version of Gunbot, when released
-- Gunbot Betas are supported (requires using Persistant Data)
-- Supports custom SSL certificate (requires using Persistant Data)
+- Supports custom SSL certificate (requires using persistent data)
+- Gunbot Betas are supported (requires using persistent data)
+- [Gunthy Marketplace](https://marketplace.gunthy.io/) custom configs are supported (requires using persistent data)
 
 # Licensing
 
@@ -78,9 +80,25 @@ Considerable efforts went into securing the GUI, but please understand that achi
 
 Containers are ephermal, which means when they complete their task, they end, and all associated data is lost. If there is data you want to keep as part of the container ending, you will want to mount a directory to preserve this data.  Gunbot Docker container supports persistentance if you decide you want to keep your Gunbot data. To support persistance add the parameter `-v "/host/directory/to/volume:/mnt/gunbot"` and the following directories and files in `/mnt/gunbot` will be redirected and saved to your mounted volume, `/host/directory/to/volume`.
 
+Persistent Gunbot Directories:
+
+- [Under Construction]
+- [Under Construction]
+- [Under Construction]
+- [Under Construction]
+
 >DO NOT use more than one instance to the exact same `/host/directory/to/volume/`, instead make sure you use different directories, for example you could use subdirectories in `/host/directory/to/volume/sub1 sub2 sub3 etc` so multiple running containers will not conflict with each other.
 
 Supported parameter: `-v "/host/directory/to/volume:/mnt/gunbot"`
+
+**Support for betas**
+The Gunbot Docker Container supports beta releases! To utilize the latest release simply download the latest beta for Linux and move the beta zip, labeled as `gunthy-linux.zip` to the persistent directory `/host/directory/to/volume`.
+
+When the container runs, it looks for `gunthy-linux.zip` (the latest beta) and will use this over the built-in application of the container.
+>Note beta releases "should" operate the same as if you were running on a normal Linux distribution, but you may run into issues since they are beta and are meant for Advanced Users only. Be sure when reporting issues to the Gunbot Community you mention the beta is running **Gunbot Docker Container**, **using Alpine Linux**, and then the version of the Gunbot beta you provided.
+
+**Support for Gunthy Marketplace configs and addons**
+Under Construction - In Testing
 
 # Troubleshooting / Feedback / Issues
 
