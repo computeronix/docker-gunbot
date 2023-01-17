@@ -91,13 +91,13 @@ Persistent Gunbot Directories:
 
 Supported parameter: `-v "/host/directory/to/volume:/mnt/gunbot"`
 
-**Support for betas**
+**Support for betas**  
 The Gunbot Docker Container supports beta releases! To utilize the latest release simply download the latest beta for Linux and move the beta zip, labeled as `gunthy-linux.zip` to the persistent directory `/host/directory/to/volume`.
 
 When the container runs, it looks for `gunthy-linux.zip` (the latest beta) and will use this over the built-in application of the container.
 >Note beta releases "should" operate the same as if you were running on a normal Linux distribution, but you may run into issues since they are beta and are meant for Advanced Users only. Be sure when reporting issues to the Gunbot Community you mention the beta is running **Gunbot Docker Container**, **using Alpine Linux**, and then the version of the Gunbot beta you provided.
 
-**Support for Gunthy Marketplace configs and addons**
+**Support for Gunthy Marketplace configs and addons**  
 Under Construction - In Testing
 
 # Troubleshooting / Feedback / Issues
