@@ -7,7 +7,7 @@ ARG GBBETA="gunthy-linux.zip"
 ARG GBPORT=5000
 ARG MAINTAINER="Gunbot"
 ARG WEBSITE="https://www.gunbot.com/"
-ARG DESCRIPTION="Gunbot is an easy to use, advanced crypto trading bot. You define or select a trading strategy and watch Gunbot trade. Enabling you to get up to hundreds of profitable trades per day, 24/7. - Gunbot Docker Container - Alpine - ${GUNBOTVERSION}"
+ARG DESCRIPTION="Gunbot is an easy to use, advanced crypto trading bot. You define or select a trading strategy and watch Gunbot trade. Enabling you to get up to hundreds of profitable trades per day, 24/7. - Docker Container - Alpine - ${GUNBOTVERSION}"
 
 FROM alpine:latest AS gunbot-builder
 ARG GUNBOTVERSION
