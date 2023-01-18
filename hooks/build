@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAGS="latest,1.2.3"
+TAGS="latest,stable-1.2.3"
 
 IFS=',' read -ra tags <<< "${TAGS}"
 TAG_COMMAND=""
