@@ -1,8 +1,8 @@
 #!/bin/sh
 
-$OVERRIDEIMAGE = "TESTME"
+OVERRIDEIMAGE="TESTME"
 
 docker build \
     --file "${DOCKERFILE_PATH}" \
-    --tag "$OVERRIDEIMAGE" \
+    --tag "${OVERRIDEIMAGE}" \
     .
