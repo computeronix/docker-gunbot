@@ -2,6 +2,8 @@
 
 STABLEVERSION=$(curl -r -G https://gunthy.trade/tag)
 
+echo $STABLEVERSION
+
 TAGS="stable-${STABLEVERSION}"
 
 IFS=',' read -ra tags <<< "${TAGS}"
