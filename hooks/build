@@ -1,6 +1,8 @@
 #!/bin/bash
 
-TAGS="latest,stable-1.2.3"
+STABLEVERSION="curl https://gunthy.trade/tag"
+
+TAGS="latest,stable-${STABLEVERSION}"
 
 IFS=',' read -ra tags <<< "${TAGS}"
 TAG_COMMAND=""
