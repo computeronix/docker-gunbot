@@ -3,5 +3,5 @@
 TAG="latest"
 
 docker build \
-    --file "${DOCKERFILE_PATH}" \
+    -f "${DOCKERFILE_PATH}" \
     -t ${DOCKER_REPO}:${TAG} .
