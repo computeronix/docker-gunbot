@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STABLEVERSION=$(curl https://gunthy.trade/tag)
+STABLEVERSION=$(curl -s https://gunthy.trade/tag)
 
 TAGS="stable-${STABLEVERSION}"
 
