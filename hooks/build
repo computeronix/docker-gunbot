@@ -1,6 +1,6 @@
 #!/bin/sh
 
-OVERRIDEIMAGE="TESTME"
+OVERRIDEIMAGE="testme"
 
 docker build \
     --file "${DOCKERFILE_PATH}" \
