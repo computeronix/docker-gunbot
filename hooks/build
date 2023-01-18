@@ -2,7 +2,7 @@
 
 STABLEVERSION="curl https://gunthy.trade/tag"
 
-TAGS="latest,stable-${STABLEVERSION}"
+TAGS="stable-${STABLEVERSION}"
 
 IFS=',' read -ra tags <<< "${TAGS}"
 TAG_COMMAND=""
