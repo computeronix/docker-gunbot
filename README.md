@@ -20,10 +20,10 @@ This setup will allow for a vanilla, Gunbot setup, in less than a minute, allowi
 # Highlights
 Key capabilities of this Gunbot container:
 
-- Latest version tag -> auto-builds with the latest stable version of Gunbot, when released
-- Supports custom SSL certificate (requires using persistent data)
+- Latest version tag -> auto-builds with the latest stable version of Gunbot
+- Supports HTTPS by default of the Web GUI with a self-sign SSL certificate (requires using persistent data)
 - Gunbot Betas are supported (requires using persistent data)
-- [Gunthy Marketplace](https://marketplace.gunthy.io/) custom configs are supported (requires using persistent data)
+- [Gunthy Marketplace](https://marketplace.gunthy.io/) custom scripts are supported (requires using persistent data)
 
 # Licensing
 
@@ -94,9 +94,9 @@ Containers are ephermal, which means when they complete their task, they end, an
 
 Persistent Gunbot Directories and Files:
 
-- ssl.config (custom file for creating a self-signed file - docker related)
-- localhost.key (for HTTPS)
-- localhost.crt (for HTTPS)
+- ssl.config (to customize the created self-signed SSL certificate [optional])
+- localhost.key (to replace the self-signed SSL certificate)
+- localhost.crt (to replace the self-signed SSL certificate)
 - json directory
 - logs directory
 - backups directory
@@ -112,6 +112,9 @@ Persistent Gunbot Directories and Files:
 Supported parameter: `-v "/host/directory/to/volume:/mnt/gunbot"`
 
 **Support for betas**  
+>The beta can be acquired from the Gunthy Announcements channel - ask your reseller for access.
+
+*Manual Install of Beta*  
 The Gunbot Docker Container supports beta releases! To utilize the latest release simply download the latest beta for Linux and move the beta zip, labeled as `gunthy-linux.zip` to the persistent directory `/host/directory/to/volume`.
 
 When the container runs, it looks for `gunthy-linux.zip` (the latest beta) and will use this over the built-in application of the container.
@@ -130,4 +133,5 @@ Check out the Gunbot Wiki to [Learn how to use Gunbot | Gunbot docs (gunthy.org)
 
 ## Need Help or Have Feedback with Gunbot Docker
 
-Submit issues/feedback/feature requests at the linked GitHub site
+ - Join the Telegram Community, ask your reseller for access.
+ - Submit issues/feedback/feature requests at the linked GitHub site.
