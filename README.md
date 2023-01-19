@@ -2,7 +2,7 @@
 
 ![docker build status](https://img.shields.io/docker/cloud/build/computeronix/gunbot?style=plastic) 
 ![docker build type](https://img.shields.io/docker/cloud/automated/computeronix/gunbot?style=plastic)
-![docker build pulls](https://img.shields.io/docker/pulls/computeronix/gunbot?style=flat)
+![docker build pulls](https://img.shields.io/docker/pulls/computeronix/gunbot?style=plastic)
 ![docker build stars](https://img.shields.io/docker/stars/computeronix/gunbot?style=plastic)
 
 **Stable Release**  
