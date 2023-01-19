@@ -1,13 +1,18 @@
-![docker build version](https://img.shields.io/docker/v/computeronix/gunbot?style=plastic) 
-![docker build status](https://img.shields.io/docker/cloud/build/computeronix/gunbot?style=plastic) 
-![docker build type](https://img.shields.io/docker/cloud/automated/computeronix/gunbot?style=plastic) 
-![docker build size](https://img.shields.io/docker/image-size/computeronix/gunbot/latest?style=plastic) 
-![docker build pulls](https://img.shields.io/docker/pulls/computeronix/gunbot?style=plastic) 
-![docker build stars](https://img.shields.io/docker/stars/computeronix/gunbot?style=plastic)
-
-
 # Gunbot - Unofficial - Docker Container
 
+![docker build status](https://img.shields.io/docker/cloud/build/computeronix/gunbot?style=plastic) 
+![docker build type](https://img.shields.io/docker/cloud/automated/computeronix/gunbot?style=plastic)
+![docker build pulls](https://img.shields.io/docker/pulls/computeronix/gunbot?style=plastic)
+![docker build stars](https://img.shields.io/docker/stars/computeronix/gunbot?style=plastic)
+
+**Stable Release**
+![docker build version by latest stable version](https://img.shields.io/docker/v/computeronix/gunbot/latest?style=plastic)
+![docker build size by latest stable version](https://img.shields.io/docker/image-size/computeronix/gunbot/latest?style=plastic)  
+
+**Beta Release**
+[Manually uploaded by user]
+
+# Overview
 I have been a [Gunbot](https://gunthy.org/gunbot/) community member since 2019 and decided to help the community out with a need of a standardized containizered app of Gunbot for an easy to run setup.
 
 This setup will allow for a vanilla, Gunbot setup, in less than a minute, allowing fully customizations, while providing one with the latest version, at all times.
@@ -126,4 +131,3 @@ Check out the Gunbot Wiki to [Learn how to use Gunbot | Gunbot docs (gunthy.org)
 ## Need Help or Have Feedback with Gunbot Docker
 
 Submit issues/feedback/feature requests at the linked GitHub site
-
