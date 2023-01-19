@@ -5,11 +5,11 @@
 ![docker build pulls](https://img.shields.io/docker/pulls/computeronix/gunbot?style=plastic)
 ![docker build stars](https://img.shields.io/docker/stars/computeronix/gunbot?style=plastic)
 
-**Stable Release**
+**Stable Release**  
 ![docker build version by latest stable version](https://img.shields.io/docker/v/computeronix/gunbot/latest?style=plastic)
 ![docker build size by latest stable version](https://img.shields.io/docker/image-size/computeronix/gunbot/latest?style=plastic)  
 
-**Beta Release**
+**Beta Release**  
 [Manually uploaded by user]
 
 # Overview
