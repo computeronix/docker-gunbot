@@ -147,7 +147,7 @@ COPY --from=gunbot-builder /tmp/gunbot ${GBINSTALLLOC}
 WORKDIR ${GBINSTALLLOC}
 
 RUN apk update \
-  && apk add --no-cache chrony libc6-compat gcompat libstdc++ libuuid1 jq unzip openssl \
+  && apk add --no-cache chrony libc6-compat gcompat libstdc++ jq unzip openssl \
   && rm -rf /var/lib/apt/lists/* \
   && chmod +x "${GBINSTALLLOC}/startup.sh"
 
