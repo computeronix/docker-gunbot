@@ -11,7 +11,7 @@ ARG WEBSITE="https://www.gunbot.com/"
 ARG DESCRIPTION="Gunbot is an easy to use, advanced crypto trading bot. You define or select a trading strategy and watch Gunbot trade. Enabling you to get up to hundreds of profitable trades per day, 24/7. - Docker Container - Alpine - ${GUNBOTVERSION}"
 
 #SCRATCH WORKSPACE FOR BUILDING IMAGE
-FROM alpine:latest AS gunbot-builder
+FROM --platform=linux/amd64 debian:bullseye-slim AS gunbot-builder
 ARG GUNBOTVERSION
 ARG GITHUBOWNER
 ARG GITHUBREPO
@@ -23,10 +23,8 @@ ARG GBPORT
 WORKDIR /tmp
 
 #BUILDING IMAGE
-#update mirrors
-RUN apk update \
-  #install packages
-  && apk add --no-cache wget jq unzip \
+#update mirrors and install packages
+RUN apt-get update && apt-get install -y wget jq unzip \
   #remove mirrors
   && rm -rf /var/lib/apt/lists/* \
   #pull ${GUNBOTVERSION} from official GitHub and extract linux client
@@ -39,8 +37,8 @@ RUN apk update \
   && printf "prompt = no\n" >> gunbot/ssl.config \
   && printf "[req_distinguished_name]\n" >> gunbot/ssl.config \
   && printf "commonName = localhost\n" >> gunbot/ssl.config \
-  #create startup.sh shell script
-  && printf "#!/bin/sh\n" > gunbot/startup.sh \
+  #create startup.sh bash script
+  && printf "#!/bin/bash\n" > gunbot/startup.sh \
   #check for persistent storage mount (${GBMOUNT})
   && printf "if [ ! -d ${GBMOUNT} ]; then \n" >> gunbot/startup.sh \
   && printf "	mkdir ${GBMOUNT}\n" >> gunbot/startup.sh \
@@ -79,7 +77,12 @@ RUN apk update \
   && printf "if [ ! -d ${GBMOUNT}/customStrategies ]; then \n" >> gunbot/startup.sh \
   && printf "	mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/s
+  #check for user_modules directory
+  && printf "if [ ! -d ${GBMOUNT}/user_modules ]; then \n" >> gunbot/startup.sh \
+  && printf "	mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
+  && printf "fi\n" >> gunbot/startup.sh \
+  && printf "ln -sf ${GBMOUNT}/user_modules ${GBINSTALLLOC}/user_modules\n" >> gunbot/s
   #check for config.js file
   && printf "if [ ! -f ${GBMOUNT}/config.js ]; then \n" >> gunbot/startup.sh \
   && printf "	cp ${GBINSTALLLOC}/config.js ${GBMOUNT}/config.js\n" >> gunbot/startup.sh \
@@ -128,7 +131,7 @@ RUN apk update \
 
 
 #BUILD THE RUN IMAGE
-FROM alpine:latest
+FROM --platform=linux/amd64 debian:bullseye-slim
 ARG MAINTAINER
 ARG WEBSITE
 ARG DESCRIPTION
@@ -146,10 +149,9 @@ COPY --from=gunbot-builder /tmp/gunbot ${GBINSTALLLOC}
 
 WORKDIR ${GBINSTALLLOC}
 
-RUN apk update \
-  && apk add --no-cache chrony libc6-compat gcompat libstdc++ jq unzip openssl \
+RUN apt-get update && apt-get install -y chrony jq unzip openssl \
   && rm -rf /var/lib/apt/lists/* \
   && chmod +x "${GBINSTALLLOC}/startup.sh"
 
 EXPOSE ${GBPORT}
-CMD ["sh","-c","${GUNBOTLOCATION}/startup.sh"]
+CMD ["bash","-c","${GUNBOTLOCATION}/startup.sh"]
