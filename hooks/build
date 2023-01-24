@@ -1,7 +1,9 @@
 #!/bin/bash
 
 TAG="latest"
+PLATFORM="linux/amd64"
 
-docker build \
+docker buildx build \
+    --platform=${PLATFORM}
     -f "${DOCKERFILE_PATH}" \
     -t ${DOCKER_REPO}:${TAG} .
