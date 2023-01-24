@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAGCOMMAND="computeronix/gunbot:latest --push"
+TAGCOMMAND="docker.io/computeronix/gunbot:latest"
 PLATFORM="linux/amd64" #linux/arm64
 
 docker buildx create --name builder --driver docker-container --bootstrap --use
@@ -8,4 +8,4 @@ docker buildx create --name builder --driver docker-container --bootstrap --use
 docker buildx build \
     --platform=${PLATFORM} \
     -f "${DOCKERFILE_PATH}" \
-    -t "${TAGCOMMAND}" .
+    -t ${TAGCOMMAND} --push .
