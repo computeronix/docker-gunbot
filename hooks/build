@@ -6,7 +6,7 @@ STABLEVERSION=$(curl https://gunthy.trade/tag)
 TAGNAME="stable-${STABLEVERSION}"
 TAG2="${DOCKER_REPO}:${TAGNAME}"
 
-PLATFORM="linux/amd64" #linux/arm64
+PLATFORM="linux/amd64,linux/arm64"
 
 docker buildx create --name builder --driver docker-container --bootstrap --use
 
