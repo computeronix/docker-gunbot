@@ -15,4 +15,4 @@ docker buildx build \
     -f "${DOCKERFILE_PATH}" \
     -t ${TAG1} \
     -t ${TAG2} \
-    .
+    --push .
