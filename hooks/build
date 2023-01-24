@@ -1,10 +1,10 @@
 #!/bin/bash
 
-TAG1="docker.io/computeronix/gunbot:latest"
+TAG1="${DOCKER_REPO}:latest"
 
 STABLEVERSION=$(curl https://gunthy.trade/tag)
 TAGNAME="stable-${STABLEVERSION}"
-TAG2="docker.io/computeronix/gunbot:${TAGNAME}"
+TAG2="${DOCKER_REPO}:${TAGNAME}"
 
 PLATFORM="linux/amd64" #linux/arm64
 
