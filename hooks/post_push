@@ -1,7 +1,0 @@
-#!/bin/bash
-
-STABLEVERSION=$(curl https://gunthy.trade/tag)
-TAGNAME="stable-${STABLEVERSION}"
-
-docker tag $IMAGE_NAME $DOCKER_REPO:$TAGNAME
-docker push $DOCKER_REPO:$TAGNAME
