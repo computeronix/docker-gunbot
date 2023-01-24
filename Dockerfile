@@ -11,7 +11,7 @@ ARG WEBSITE="https://www.gunbot.com/"
 ARG DESCRIPTION="Gunbot is an easy to use, advanced crypto trading bot. You define or select a trading strategy and watch Gunbot trade. Enabling you to get up to hundreds of profitable trades per day, 24/7. - Docker Container - Alpine - ${GUNBOTVERSION}"
 
 #SCRATCH WORKSPACE FOR BUILDING IMAGE
-FROM --platform=linux/amd64 debian:bullseye-slim AS gunbot-builder
+FROM --platform=linux/amd64 debian:bullseye AS gunbot-builder
 ARG GUNBOTVERSION
 ARG GITHUBOWNER
 ARG GITHUBREPO
@@ -77,12 +77,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "if [ ! -d ${GBMOUNT}/customStrategies ]; then \n" >> gunbot/startup.sh \
   && printf "	mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/s
-  #check for user_modules directory
-  && printf "if [ ! -d ${GBMOUNT}/user_modules ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
-  && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/user_modules ${GBINSTALLLOC}/user_modules\n" >> gunbot/s
+  && printf "ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/startup.sh \
   #check for config.js file
   && printf "if [ ! -f ${GBMOUNT}/config.js ]; then \n" >> gunbot/startup.sh \
   && printf "	cp ${GBINSTALLLOC}/config.js ${GBMOUNT}/config.js\n" >> gunbot/startup.sh \
@@ -131,7 +126,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
 
 
 #BUILD THE RUN IMAGE
-FROM --platform=linux/amd64 debian:bullseye-slim
+FROM --platform=linux/amd64 debian:bullseye
 ARG MAINTAINER
 ARG WEBSITE
 ARG DESCRIPTION
