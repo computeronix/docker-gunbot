@@ -1,7 +1,11 @@
 #!/bin/bash
 
 TAG1="docker.io/computeronix/gunbot:latest"
-TAG2="docker.io/computeronix/gunbot:latest"
+
+STABLEVERSION=$(curl https://gunthy.trade/tag)
+TAGNAME="stable-${STABLEVERSION}"
+TAG2="docker.io/computeronix/gunbot:${TAGNAME}"
+
 PLATFORM="linux/amd64" #linux/arm64
 
 docker buildx create --name builder --driver docker-container --bootstrap --use
