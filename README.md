@@ -101,6 +101,7 @@ Persistent Gunbot Directories and Files:
 - logs directory
 - backups directory
 - customStrategies directory
+- user_modules directory
 - config.js
 - UTAconfig.json
 - autoconfig.json
