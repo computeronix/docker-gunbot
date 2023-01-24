@@ -6,13 +6,12 @@ ARG GBINSTALLLOC="/opt/gunbot"
 ARG GBMOUNT="/mnt/gunbot"
 ARG GBBETA="gunthy-linux.zip"
 ARG GBPORT=5000
-ARG DOCKERPLAT="linux/amd64"
 ARG MAINTAINER="Gunbot"
 ARG WEBSITE="https://www.gunbot.com/"
 ARG DESCRIPTION="Gunbot is an easy to use, advanced crypto trading bot. You define or select a trading strategy and watch Gunbot trade. Enabling you to get up to hundreds of profitable trades per day, 24/7. - Docker Container - Alpine - ${GUNBOTVERSION}"
 
 #SCRATCH WORKSPACE FOR BUILDING IMAGE
-FROM --platform=$DOCKERPLAT debian:bullseye AS gunbot-builder
+FROM debian:bullseye AS gunbot-builder
 ARG GUNBOTVERSION
 ARG GITHUBOWNER
 ARG GITHUBREPO
@@ -127,7 +126,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
 
 
 #BUILD THE RUN IMAGE
-FROM --platform=$DOCKERPLAT debian:bullseye
+FROM debian:bullseye
 ARG MAINTAINER
 ARG WEBSITE
 ARG DESCRIPTION
