@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   #remove mirrors
   && rm -rf /var/lib/apt/lists/* \
   #pull ${GUNBOTVERSION} from official GitHub and extract linux client
-  && wget -q -nv -O gunbot.zip $(wget -q -nv -O- https://api.github.com/repos/${GITHUBOWNER}/${GITHUBREPO}/releases/${GUNBOTVERSION} 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("gunthy_linux")) | .browser_download_url') \
+  && wget -q -nv -O gunbot.zip $(wget -q -nv -O- https://api.github.com/repos/${GITHUBOWNER}/${GITHUBREPO}/releases/${GUNBOTVERSION} 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') \
   && unzip -d . gunbot.zip \
   && mv gunthy_linux gunbot \
   #create self-signed ssl configuratuon
