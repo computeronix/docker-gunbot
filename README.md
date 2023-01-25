@@ -10,8 +10,8 @@
 ![docker build size by latest stable version](https://img.shields.io/docker/image-size/computeronix/gunbot/latest?style=plastic)  
 
 **Beta Release**  
-![docker build version by latest beta version](https://img.shields.io/docker/v/computeronix/gunbot/latest?style=plastic)
-![docker build size by latest beta version](https://img.shields.io/docker/image-size/computeronix/gunbot/latest?style=plastic) 
+![docker build version by latest beta version](https://img.shields.io/docker/v/computeronix/gunbot/beta?style=plastic)
+![docker build size by latest beta version](https://img.shields.io/docker/image-size/computeronix/gunbot/beta?style=plastic) 
 
 # Overview
 I have been a [Gunbot](https://gunthy.org/gunbot/) community member since 2019 and decided to help the community out with a need of a standardized containizered app of Gunbot for an easy to run setup.
