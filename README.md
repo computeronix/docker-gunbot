@@ -29,6 +29,7 @@ Key capabilities of this Gunbot container application:
 - Multi-platform support ( `amd64` and `arm64` )
 - Supports HTTPS by default with the Web GUI
 - [Gunthy Marketplace](https://marketplace.gunthy.io/) custom scripts are supported (requires using persistent data)
+- Listed on the Gunthy Marketplace, [check us out](https://marketplace.gunthy.io/extras/GunbotDocker)
 
 ## How to Get Started
 
