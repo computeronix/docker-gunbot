@@ -1,8 +1,12 @@
-ARG GUNBOTVERSION
-ARG GITHUBOWNER
-ARG GITHUBREPO
+ARG GUNBOTVERSION="latest"
+ARG GITHUBOWNER="GuntharDeNiro"
+ARG GITHUBREPO="BTCT"
+ARG GITHUBOWNERBETA="computeronix"
+ARG GITHUBREPOBETA="BTCT-Beta"
+ARG GUNBOTBETAVERSION="latest"
 ARG GBINSTALLLOC="/opt/gunbot"
 ARG GBMOUNT="/mnt/gunbot"
+ARG GBACTIVATEBETA
 ARG GBBETA="gunthy-linux.zip"
 ARG GBPORT=5000
 ARG MAINTAINER="Gunbot"
@@ -15,6 +19,10 @@ ARG GUNBOTVERSION
 ARG GITHUBOWNER
 ARG GITHUBREPO
 ARG GBINSTALLLOC
+ARG GITHUBOWNERBETA
+ARG GITHUBREPOBETA
+ARG GUNBOTBETAVERSION
+ARG GBACTIVATEBETA
 ARG GBBETA
 ARG GBMOUNT
 ARG GBPORT
@@ -30,6 +38,12 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && wget -q -nv -O gunbot.zip $(wget -q -nv -O- https://api.github.com/repos/${GITHUBOWNER}/${GITHUBREPO}/releases/${GUNBOTVERSION} 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') \
   && unzip -d . gunbot.zip \
   && mv gunthy_linux gunbot \
+  #check for gunbot beta activation
+  && if [ ${GBACTIVATEBETA} == 1 ] ; then \
+    wget -q -nv -O gunbot-beta.zip $(wget -q -nv -O- https://api.github.com/repos/${GITHUBOWNERBETA}/${GITHUBREPOBETA}/releases/${GUNBOTBETAVERSION} 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') ; \
+    unzip -d . gunbot-beta.zip ; \
+    mv gunthy-linux gunbot ; \
+  fi \
   #create self-signed ssl configuratuon
   && printf "[req]\n" > gunbot/ssl.config \
   && printf "distinguished_name = req_distinguished_name\n" >> gunbot/ssl.config \
