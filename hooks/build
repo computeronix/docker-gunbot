@@ -3,7 +3,7 @@
 if [ "$SOURCE_BRANCH" == "stable" ]; then
       TAG1="${DOCKER_REPO}:latest"
       STABLEVERSION=$(curl https://gunthy.trade/tag)
-      TAGNAME="${STABLEVERSION}"
+      TAGNAME="$SOURCE_BRANCH-${STABLEVERSION}"
       TAG2="${DOCKER_REPO}:${TAGNAME}"
       GBVERSION="latest"
       GBOWNER="GuntharDeNiro"
