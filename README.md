@@ -55,6 +55,9 @@ docker run -d computeronix/gunbot:latest -p 5010:5000 -v "/host/directory/to/vol
 ```
 In the above example, Gunbot would be available on `https://IPofCONTAINER:5010` and data would persist on the mounted directory `/host/directory/to/volume`.
 
+## Documentation
+The detailed documentation on how to use the container, background, future roadmap, etc are all located on the [(Unofficial) Gunbot Docker Container Docs](https://docs.gunthy.trade/) site.
+
 ## Support
 
 ### Need Help with Gunbot?
