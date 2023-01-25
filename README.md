@@ -33,6 +33,12 @@ Key capabilities of this Gunbot container application:
 
 ## How to Get Started
 
+### Licensing
+
+First, Gunbot requires licensing to run and please check out the latest licensing details on the Gunbot Wiki at [Gunbot About Blockchain Licensing](https://wiki.gunthy.org/about/system-requirements/license-info#blockchain-based-license-system).
+
+To acquire a license, please reach out to a [Gunbot Reseller](https://gunthy.org/resellers/) for more information.
+
 ### Docker Hub Repo
 Access the [Docker Hub](https://hub.docker.com/r/computeronix/gunbot) to review tags and all the details of the container.
 
