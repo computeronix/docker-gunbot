@@ -2,6 +2,8 @@
 
 TAG1="${DOCKER_REPO}:latest"
 
+echo "SOURCE: ${SOURCE_BRANCH}"
+
 STABLEVERSION=$(curl https://gunthy.trade/tag)
 TAGNAME="stable-${STABLEVERSION}"
 TAG2="${DOCKER_REPO}:${TAGNAME}"
