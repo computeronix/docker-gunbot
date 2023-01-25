@@ -137,3 +137,4 @@ Check out the Gunbot Wiki to [Learn how to use Gunbot | Gunbot docs (gunthy.org)
 
  - Join the Telegram Community, ask your reseller for access.
  - Submit issues/feedback/feature requests at the linked GitHub site.
+
