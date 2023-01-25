@@ -37,10 +37,9 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   #pull ${GUNBOTVERSION} from official GitHub and extract linux client
   && wget -q -nv -O gunbot.zip $(wget -q -nv -O- https://api.github.com/repos/${GITHUBOWNER}/${GITHUBREPO}/releases/${GUNBOTVERSION} 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') \
   && unzip -d . gunbot.zip \
-  && mv gunthy_linux gunbot \
+  && mv gunthy-linux gunbot \
   #check for gunbot beta activation
   && if [[ "$GBACTIVATEBETA" -eq 1 ]]; then \
-    rm -rf gunthy-linux ; \
     wget -q -nv -O gunbot-beta.zip $(wget -q -nv -O- https://api.github.com/repos/${GITHUBOWNERBETA}/${GITHUBREPOBETA}/releases/${GUNBOTBETAVERSION} 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("linux")) | .browser_download_url') ; \
     unzip -d . gunbot-beta.zip ; \
     mv gunthy-linux gunbot ; \
