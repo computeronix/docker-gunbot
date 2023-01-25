@@ -1,21 +1,15 @@
 #!/bin/bash
 
-echo "THIS IS ${SOURCE_BRANCH}"
-
-if [ "${SOURCE_BRANCH}" == "stable" ]; then
-	echo "its stable"
-    TAG1="${DOCKER_REPO}:latest"
-    
-    STABLEVERSION=$(curl https://gunthy.trade/tag)
-    TAGNAME="${SOURCE_BRANCH}-${STABLEVERSION}"
-    TAG2="${DOCKER_REPO}:${TAGNAME}"
+if [ "$SOURCE_BRANCH" == "stable" ]; then
+      TAG1="${DOCKER_REPO}:latest"
+      STABLEVERSION=$(curl https://gunthy.trade/tag)
+      TAGNAME="${SOURCE_BRANCH}-${STABLEVERSION}"
+      TAG2="${DOCKER_REPO}:${TAGNAME}"
 else
-	echo "its beta"
-    TAG1="${DOCKER_REPO}:${SOURCE_BRANCH}-latest"
-    
-    BETAVERSION=$(curl https://gunthy.trade/tagbeta)
-    TAGNAME="${SOURCE_BRANCH}-${BETAVERSION}"
-    TAG2="${DOCKER_REPO}:${TAGNAME}"
+      TAG1="${DOCKER_REPO}:${SOURCE_BRANCH}-latest"
+      BETAVERSION=$(curl https://gunthy.trade/tagbeta)
+      TAGNAME="${SOURCE_BRANCH}-${BETAVERSION}"
+      TAG2="${DOCKER_REPO}:${TAGNAME}"
 fi
 
 PLATFORM="linux/amd64,linux/arm64"
