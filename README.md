@@ -1,48 +1,69 @@
+# (Unofficial) Gunbot Docker Container
 
-# Gunbot - Unofficial - Docker Container
+## Docker Statistics
 
-![docker build status](https://img.shields.io/docker/cloud/build/computeronix/gunbot?style=plastic) 
+![docker build status](https://img.shields.io/docker/cloud/build/computeronix/gunbot?style=plastic)
 ![docker build type](https://img.shields.io/docker/cloud/automated/computeronix/gunbot?style=plastic)
 ![docker build pulls](https://img.shields.io/docker/pulls/computeronix/gunbot?style=plastic)
 ![docker build open issues](https://img.shields.io/github/issues/computeronix/docker-gunbot?style=plastic)
 ![docker build stars](https://img.shields.io/docker/stars/computeronix/gunbot?style=plastic)
 
-**Stable Release**  
+### Stable Release 
 ![docker build version by latest stable version](https://img.shields.io/docker/v/computeronix/gunbot/latest?style=plastic)
 ![docker build size by latest stable version](https://img.shields.io/docker/image-size/computeronix/gunbot/latest?style=plastic)  
 
-**Beta Release**  
+### Beta Release
 ![docker build version by latest beta version](https://img.shields.io/docker/v/computeronix/gunbot/beta?style=plastic)
-![docker build size by latest beta version](https://img.shields.io/docker/image-size/computeronix/gunbot/beta?style=plastic) 
+![docker build size by latest beta version](https://img.shields.io/docker/image-size/computeronix/gunbot/beta?style=plastic)
 
-# Overview
+## Introduction
 I have been a [Gunbot](https://gunthy.org/gunbot/) community member since 2019 and decided to help the community out with a need of a standardized containizered app of Gunbot for an easy to run setup.
 
 This setup will allow for a vanilla, Gunbot setup, in less than a minute, allowing fully customizations, while providing one with the latest version, at all times.
 
-# Highlights
-Key capabilities of this Gunbot container:
+### Highlights
+Key capabilities of this Gunbot container application:
 
-- Latest version tag -> auto-builds with the latest stable version of Gunbot
-- Supports HTTPS by default of the Web GUI with a self-sign SSL certificate (requires using persistent data)
-- Gunbot Betas are supported, use the tag `:beta`
+- Auto-builds with the latest **stable** version of Gunbot, use the tag `:latest`
+- Auto-builds with the latest **beta** version of Gunbot, use the tag `:beta`
+- Multi-platform support ( `amd64` and `arm64` )
+- Supports HTTPS by default with the Web GUI
 - [Gunthy Marketplace](https://marketplace.gunthy.io/) custom scripts are supported (requires using persistent data)
 
-# What is Gunbot
-Gunbot is an easy to use, advanced crypto trading bot. You define or select a trading strategy and watch Gunbot trade. Enabling you to get up to hundreds of profitable trades per day, 24/7.
+## How to Get Started
 
-Learn more about Gunbot at https://www.gunbot.com
+### Docker Hub Repo
+Access the [Docker Hub](https://hub.docker.com/r/computeronix/gunbot) to review tags all the details of the container.
 
-# Documentation
-Review our wiki style docs for all the detailed information on the container at: https://docs.gunthy.trade/
+### Quick Start
+For the automated, quick start route, with your container tool, simply run
+```bash
+docker run -d computeronix/gunbot:latest
+```
 
-# Licensing
+Once the image is downloaded, it will run and auto-start in usually about one minute or less.
 
-First, Gunbot requires licensing to run and please check out the latest licensing details on the Gunbot Wiki at [Gunbot About Blockchain Licensing](https://wiki.gunthy.org/about/system-requirements/license-info#blockchain-based-license-system).
+If the port, by default **5000**, is open on the host, go to `https://IPofCONTAINER:5000` (`localhost` could be used if local environment)
 
-To acquire a license, please reach out to a [Gunbot Reseller](https://gunthy.org/resellers/) for more information.
+> PRO TIP: if this is the first time using Gunbot, or you need assistance setting up the config, open the port and pass-it through the container, then use the Web GUI to set it up. The Gunbot team has done an outstanding job with the Web GUI!  
+  
+> DO NOT forget to use the persistent data option below if you plan to keep your data
 
-## Need Help or Have Feedback with Gunbot Docker
+Example with persistent data and port pass-through
+```bash
+docker run -d computeronix/gunbot:latest -p 5010:5000 -v "/host/directory/to/volume:/mnt/gunbot"
+```
+In the above example, Gunbot would be available on `https://IPofCONTAINER:5010` and data would persist on the mounted directory `/host/directory/to/volume`.
+
+## Support
+
+### Need Help with Gunbot?
+
+Check out the Gunbot Wiki to [Learn how to use Gunbot | Gunbot docs (gunthy.org)](https://wiki.gunthy.org/)
+
+>Gunbot Docker (Container) works the same as if it is running on Linux directly
+
+### Need Help or Have Feedback with Gunbot Docker?
 
  - Join the Telegram Community, ask the Gunbot School for access.
- - Submit issues/feedback/feature requests at the [GitHub site](https://github.com/computeronix/docker-gunbot).
+ - Submit issues/feedback/feature requests at the GitHub site, under [issues](https://github.com/computeronix/docker-gunbot/issues).
