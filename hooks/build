@@ -6,7 +6,7 @@ if [ "$SOURCE_BRANCH" == "stable" ]; then
       TAGNAME="${STABLEVERSION}"
       TAG2="${DOCKER_REPO}:${TAGNAME}"
 else
-      TAG1="${DOCKER_REPO}:${SOURCE_BRANCH}-latest"
+      TAG1="${DOCKER_REPO}:${SOURCE_BRANCH}"
       BETAVERSION=$(curl https://gunthy.trade/tagbeta)
       TAGNAME="${BETAVERSION}"
       TAG2="${DOCKER_REPO}:${TAGNAME}"
