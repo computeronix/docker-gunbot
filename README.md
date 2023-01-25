@@ -34,7 +34,7 @@ Key capabilities of this Gunbot container application:
 ## How to Get Started
 
 ### Docker Hub Repo
-Access the [Docker Hub](https://hub.docker.com/r/computeronix/gunbot) to review tags all the details of the container.
+Access the [Docker Hub](https://hub.docker.com/r/computeronix/gunbot) to review tags and all the details of the container.
 
 ### Quick Start
 For the automated, quick start route, with your container tool, simply run
