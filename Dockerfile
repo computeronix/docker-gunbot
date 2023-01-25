@@ -9,9 +9,9 @@ ARG GBMOUNT="/mnt/gunbot"
 ARG GBACTIVATEBETA
 ARG GBBETA="gunthy-linux.zip"
 ARG GBPORT=5000
-ARG MAINTAINER="Gunbot"
-ARG WEBSITE="https://www.gunbot.com/"
-ARG DESCRIPTION="Gunbot is an easy to use, advanced crypto trading bot. You define or select a trading strategy and watch Gunbot trade. Enabling you to get up to hundreds of profitable trades per day, 24/7. - Docker Container - Alpine - ${GUNBOTVERSION}"
+ARG MAINTAINER="computeronix"
+ARG WEBSITE="https://hub.docker.com/r/computeronix/gunbot"
+ARG DESCRIPTION="(Unofficial) Gunbot Docker Container - ${GUNBOTVERSION}"
 
 #SCRATCH WORKSPACE FOR BUILDING IMAGE
 FROM --platform="linux/amd64" debian:bullseye AS gunbot-builder
