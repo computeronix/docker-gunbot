@@ -5,17 +5,12 @@ if [ "$SOURCE_BRANCH" == "stable" ]; then
       STABLEVERSION=$(curl https://gunthy.trade/tag)
       TAGNAME="$SOURCE_BRANCH-${STABLEVERSION}"
       TAG2="${DOCKER_REPO}:${TAGNAME}"
-      GBVERSION="latest"
-      GBOWNER="GuntharDeNiro"
-      GBREPO="BTCT"
 else
       TAG1="${DOCKER_REPO}:${SOURCE_BRANCH}"
       BETAVERSION=$(curl https://gunthy.trade/tagbeta)
       TAGNAME="${BETAVERSION}"
       TAG2="${DOCKER_REPO}:${TAGNAME}"
-      GBVERSION="latest"
-      GBOWNER="computeronix"
-      GBREPO="BTCT-Beta"
+      BETAGB=1
 fi
 
 PLATFORM="linux/amd64,linux/arm64"
@@ -26,7 +21,5 @@ docker buildx build --push \
     -f "${DOCKERFILE_PATH}" \
     -t ${TAG1} \
     -t ${TAG2} \
-    --build-arg GUNBOTVERSION=${GBVERSION} \
-    --build-arg GITHUBOWNER=${GBOWNER} \
-    --build-arg GITHUBREPO=${GBREPO} \
+    --build-arg GBACTIVATEBETA=${BETAGB} \
     .
