@@ -3,12 +3,12 @@
 if [ "$SOURCE_BRANCH" == "stable" ]; then
       TAG1="${DOCKER_REPO}:latest"
       STABLEVERSION=$(curl https://gunthy.trade/tag)
-      TAGNAME="${SOURCE_BRANCH}-${STABLEVERSION}"
+      TAGNAME="${STABLEVERSION}"
       TAG2="${DOCKER_REPO}:${TAGNAME}"
 else
       TAG1="${DOCKER_REPO}:${SOURCE_BRANCH}-latest"
       BETAVERSION=$(curl https://gunthy.trade/tagbeta)
-      TAGNAME="${SOURCE_BRANCH}-${BETAVERSION}"
+      TAGNAME="${BETAVERSION}"
       TAG2="${DOCKER_REPO}:${TAGNAME}"
 fi
 
