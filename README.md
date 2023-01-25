@@ -44,5 +44,5 @@ To acquire a license, please reach out to a [Gunbot Reseller](https://gunthy.org
 
 ## Need Help or Have Feedback with Gunbot Docker
 
- - Join the Telegram Community, ask your reseller for access.
- - Submit issues/feedback/feature requests at the linked GitHub site.
+ - Join the Telegram Community, ask the Gunbot School for access.
+ - Submit issues/feedback/feature requests at the [GitHub site](https://github.com/computeronix/docker-gunbot).
