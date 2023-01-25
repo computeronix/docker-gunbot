@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "THIS IS ${SOURCE_BRANCH}"
+
 if [ "${SOURCE_BRANCH}" == "stable" ]; then
 	echo "its stable"
     TAG1="${DOCKER_REPO}:latest"
