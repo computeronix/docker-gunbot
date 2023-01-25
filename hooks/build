@@ -19,7 +19,7 @@ docker buildx create --name builder --driver docker-container --bootstrap --use
 docker buildx build --push \
     --platform=${PLATFORM} \
     -f "${DOCKERFILE_PATH}" \
-    -t ${TAG1} \
     -t ${TAG2} \
+    -t ${TAG1} \
     --build-arg GBACTIVATEBETA=${BETAGB} \
     .
