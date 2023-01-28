@@ -132,11 +132,18 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "jq '.GUI.key = \"localhost.key\"' /tmp/config4.js > /tmp/config5.js\n" >> gunbot/startup.sh \
   #inject config -> setup localhost.crt
   && printf "jq '.GUI.cert = \"localhost.crt\"' /tmp/config5.js > ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
+  #create custom.sh bash script
+  && printf "#!/bin/bash\n" > gunbot/custom.sh \
+  #inject custom.sh script into startup.sh
+  && printf "${GBINSTALLLOC}/custom.sh\n" >> gunbot/startup.sh \
+  #create runner.sh bash script
+  && printf "#!/bin/bash\n" > gunbot/runner.sh \
   #run chronyd (note will not work without proper permissions and will error, but will continue forward)
-  && printf "chronyd -d || :\n" >> gunbot/startup.sh \
+  && printf "chronyd -d || :\n" >> gunbot/runner.sh \
   #run gunbot
-  && printf "${GBINSTALLLOC}/gunthy-linux\n" >> gunbot/startup.sh
-
+  && printf "${GBINSTALLLOC}/gunthy-linux\n" >> gunbot/runner.sh \
+  #inject runner.sh script and have it run next
+  && printf "${GBINSTALLLOC}/runner.sh\n" >> gunbot/startup.sh
 
 #BUILD THE RUN IMAGE
 FROM --platform="linux/amd64" debian:bullseye
@@ -159,7 +166,9 @@ WORKDIR ${GBINSTALLLOC}
 
 RUN apt-get update && apt-get install -y chrony jq unzip openssl \
   && rm -rf /var/lib/apt/lists/* \
-  && chmod +x "${GBINSTALLLOC}/startup.sh"
+  && chmod +x "${GBINSTALLLOC}/startup.sh" \
+  && chmod +x "${GBINSTALLLOC}/custom.sh" \
+  && chmod +x "${GBINSTALLLOC}/runner.sh"
 
 EXPOSE ${GBPORT}
 CMD ["bash","-c","${GUNBOTLOCATION}/startup.sh"]
