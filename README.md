@@ -77,3 +77,4 @@ The detailed documentation on how to use the container, background, future roadm
 
  - Join the Telegram Community, ask the Gunbot School for access.
  - Submit issues/feedback/feature requests at the GitHub site, under [issues](https://github.com/computeronix/docker-gunbot/issues).
+ 
