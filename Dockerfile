@@ -133,7 +133,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   #inject config -> setup localhost.crt
   && printf "jq '.GUI.cert = \"localhost.crt\"' /tmp/config5.js > ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
   #run chronyd (note will not work without proper permissions and will error, but will continue forward)
-  && printf "chronyd -d || :\n" >> gunbot/startup.sh \
+  && printf "chronyd -d || : &\n" >> gunbot/startup.sh \
   #create custom.sh bash script
   && printf "#!/bin/bash\n" > gunbot/custom.sh \
   #inject custom.sh script into startup.sh
