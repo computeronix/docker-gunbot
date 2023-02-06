@@ -66,11 +66,11 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "	ln -sf ${GBMOUNT}/ssl.config ${GBINSTALLLOC}/ssl.config\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
   #check for localhost.crt AND localhost.key
-  && printf "if [ ! -f ${GBMOUNT}/localhost.crt ] && [ ! -f ${GBMOUNT}/localhost.key ]; then \n" >> gunbot/startup.sh \
-  && printf "	openssl req -config ${GBINSTALLLOC}/ssl.config -newkey rsa:2048 -nodes -keyout ${GBINSTALLLOC}/localhost.key -x509 -days 365 -out ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
-  && printf "else\n" >> gunbot/startup.sh \
-  && printf "   ln -sf ${GBMOUNT}/localhost.crt ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
-  && printf "fi\n" >> gunbot/startup.sh \
+  #&& printf "if [ ! -f ${GBMOUNT}/localhost.crt ] && [ ! -f ${GBMOUNT}/localhost.key ]; then \n" >> gunbot/startup.sh \
+  #&& printf "	openssl req -config ${GBINSTALLLOC}/ssl.config -newkey rsa:2048 -nodes -keyout ${GBINSTALLLOC}/localhost.key -x509 -days 365 -out ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
+  #&& printf "else\n" >> gunbot/startup.sh \
+  #&& printf "   ln -sf ${GBMOUNT}/localhost.crt ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
+  #&& printf "fi\n" >> gunbot/startup.sh \
   #check for json directory
   && printf "if [ ! -d ${GBMOUNT}/json ]; then \n" >> gunbot/startup.sh \
   && printf "	mkdir ${GBMOUNT}/json\n" >> gunbot/startup.sh \
@@ -132,11 +132,11 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   #inject config -> setup json output -> /opt/gunbot/json
   && printf "jq '.bot.json_output = \"/opt/gunbot/json\"' /tmp/config2.js > /tmp/config3.js\n" >> gunbot/startup.sh \
   #inject config -> force port 5000
-  && printf "jq '.GUI.port = ${GBPORT}' /tmp/config3.js > /tmp/config4.js\n" >> gunbot/startup.sh \
+  && printf "jq '.GUI.port = ${GBPORT}' /tmp/config3.js > ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
   #inject config -> setup localhost.key
-  && printf "jq '.GUI.key = \"localhost.key\"' /tmp/config4.js > /tmp/config5.js\n" >> gunbot/startup.sh \
+  #&& printf "jq '.GUI.key = \"localhost.key\"' /tmp/config4.js > /tmp/config5.js\n" >> gunbot/startup.sh \
   #inject config -> setup localhost.crt
-  && printf "jq '.GUI.cert = \"localhost.crt\"' /tmp/config5.js > ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
+  #&& printf "jq '.GUI.cert = \"localhost.crt\"' /tmp/config5.js > ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
   #run chronyd (note will not work without proper permissions and will error, but will continue forward)
   && printf "chronyd -d || : &\n" >> gunbot/startup.sh \
   #create custom.sh bash script
