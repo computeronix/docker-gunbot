@@ -132,7 +132,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   #inject config -> setup json output -> /opt/gunbot/json
   && printf "jq '.bot.json_output = \"/opt/gunbot/json\"' /tmp/config2.js > /tmp/config3.js\n" >> gunbot/startup.sh \
   #inject config -> force port 5000
-  && printf "jq '.GUI.port = ${GBPORT}' /tmp/config3.js > ${GBINSTALLLOC}/config.js\n" >> gunbot/startup.sh \
+  && printf "jq '.GUI.port = ${GBPORT}' /tmp/config3.js > /tmp/config4.js\n" >> gunbot/startup.sh \
   #inject config -> setup localhost.key
   && printf "jq '.GUI.key = \"localhost.key\"' /tmp/config4.js > /tmp/config5.js\n" >> gunbot/startup.sh \
   #inject config -> setup localhost.crt
