@@ -50,6 +50,13 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "prompt = no\n" >> gunbot/ssl.config \
   && printf "[req_distinguished_name]\n" >> gunbot/ssl.config \
   && printf "commonName = localhost\n" >> gunbot/ssl.config \
+  && printf "[ v3_req ]\n" >> gunbot/ssl.config \
+  && printf "basicConstraints = CA:FALSE\n" >> gunbot/ssl.config \
+  && printf "subjectKeyIdentifier = hash\n" >> gunbot/ssl.config \
+  && printf "authorityKeyIdentifier = keyid:always, issuer:always\n" >> gunbot/ssl.config \
+  && printf "keyUsage = nonRepudiation, digitalSignature, keyEncipherment, keyAgreement\n" >> gunbot/ssl.config \
+  && printf "extendedKeyUsage = serverAuth\n" >> gunbot/ssl.config \
+  && printf "subjectAltName = DNS:localhost\n" >> gunbot/ssl.config \
   #create startup.sh bash script
   && printf "#!/bin/bash\n" > gunbot/startup.sh \
   #check for Gunbot Beta (${GBBETA})
@@ -63,7 +70,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #check for localhost.crt AND localhost.key
   && printf "if [ ! -f ${GBMOUNT}/localhost.crt ] && [ ! -f ${GBMOUNT}/localhost.key ]; then \n" >> gunbot/startup.sh \
-  && printf "	openssl req -config ${GBINSTALLLOC}/ssl.config -newkey rsa:2048 -nodes -keyout ${GBINSTALLLOC}/localhost.key -x509 -days 365 -out ${GBINSTALLLOC}/localhost.crt > /tmp/openssl.log\n" >> gunbot/startup.sh \
+  && printf "	openssl req -config ${GBINSTALLLOC}/ssl.config -newkey rsa:2048 -nodes -keyout ${GBINSTALLLOC}/localhost.key -x509 -days 365 -out ${GBINSTALLLOC}/localhost.crt -extensions v3_req 2>/dev/null \n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   ln -sf ${GBMOUNT}/localhost.crt ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
