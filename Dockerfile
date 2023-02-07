@@ -63,7 +63,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #check for localhost.crt AND localhost.key
   && printf "if [ ! -f ${GBMOUNT}/localhost.crt ] && [ ! -f ${GBMOUNT}/localhost.key ]; then \n" >> gunbot/startup.sh \
-  && printf "	openssl req -config ${GBINSTALLLOC}/ssl.config -newkey rsa:2048 -nodes -keyout ${GBINSTALLLOC}/localhost.key -x509 -days 365 -out ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
+  && printf "	openssl req -config ${GBINSTALLLOC}/ssl.config -newkey rsa:2048 -nodes -keyout ${GBINSTALLLOC}/localhost.key -x509 -days 365 -out ${GBINSTALLLOC}/localhost.crt > /tmp/openssl.log\n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   ln -sf ${GBMOUNT}/localhost.crt ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
