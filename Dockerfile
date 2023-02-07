@@ -175,15 +175,15 @@ WORKDIR ${GBINSTALLLOC}
 
 RUN apt-get update && apt-get install -y chrony jq unzip openssl \
   && rm -rf /var/lib/apt/lists/* \
-  && useradd -u 1000 gunbotuser \
-  && chown -R 1000:1000 "${GBINSTALLLOC}" \
+  #&& useradd -u 1000 gunbotuser \
+  #&& chown -R 1000:1000 "${GBINSTALLLOC}" \
   && mkdir "${GBMOUNT}" \
-  && chown -R 1000:1000 "${GBMOUNT}" \
+  #&& chown -R 1000:1000 "${GBMOUNT}" \
   && chmod +x "${GBINSTALLLOC}/startup.sh" \
   && chmod +x "${GBINSTALLLOC}/custom.sh" \
   && chmod +x "${GBINSTALLLOC}/runner.sh"
 
-USER gunbotuser
+#USER gunbotuser
 
 EXPOSE ${GBPORT}
 CMD ["bash","-c","${GUNBOTLOCATION}/startup.sh"]
