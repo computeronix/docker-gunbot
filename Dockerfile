@@ -52,10 +52,6 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "commonName = localhost\n" >> gunbot/ssl.config \
   #create startup.sh bash script
   && printf "#!/bin/bash\n" > gunbot/startup.sh \
-  #check for persistent storage mount (${GBMOUNT})
-  && printf "if [ ! -d ${GBMOUNT} ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}\n" >> gunbot/startup.sh \
-  && printf "fi\n" >> gunbot/startup.sh \
   #check for Gunbot Beta (${GBBETA})
   && printf "if [ -f ${GBMOUNT}/${GBBETA} ]; then \n" >> gunbot/startup.sh \
   && printf "	unzip -d ${GBMOUNT} ${GBMOUNT}/${GBBETA}\n" >> gunbot/startup.sh \
@@ -158,6 +154,7 @@ ARG DESCRIPTION
 ARG GBINSTALLLOC
 ARG GBBETA
 ARG GBPORT
+ARG GBMOUNT
 ENV GUNBOTLOCATION=${GBINSTALLLOC}
 
 LABEL \
@@ -171,9 +168,15 @@ WORKDIR ${GBINSTALLLOC}
 
 RUN apt-get update && apt-get install -y chrony jq unzip openssl \
   && rm -rf /var/lib/apt/lists/* \
+  && useradd -u 1000 gunbotuser \
+  && chown -R 1000:1000 "${GBINSTALLLOC}" \
+  && mkdir "${GBMOUNT}" \
+  && chown -R 1000:1000 "${GBMOUNT}" \
   && chmod +x "${GBINSTALLLOC}/startup.sh" \
   && chmod +x "${GBINSTALLLOC}/custom.sh" \
   && chmod +x "${GBINSTALLLOC}/runner.sh"
+
+USER gunbotuser
 
 EXPOSE ${GBPORT}
 CMD ["bash","-c","${GUNBOTLOCATION}/startup.sh"]
