@@ -94,10 +94,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "	mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
   && printf "ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/startup.sh \
-  #check for user_modules directory
-  && printf "if [ ! -d ${GBMOUNT}/user_modules ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
-  && printf "fi\n" >> gunbot/startup.sh \
+  #link user_modules directory (but do not create it)
   && printf "ln -sf ${GBMOUNT}/user_modules ${GBINSTALLLOC}/user_modules\n" >> gunbot/startup.sh \
   #check for config.js file
   && printf "if [ ! -f ${GBMOUNT}/config.js ]; then \n" >> gunbot/startup.sh \
