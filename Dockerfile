@@ -178,7 +178,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "${GBINSTALLLOC}/runner.sh\n" >> gunbot/startup.sh
 
 #BUILD THE RUN IMAGE
-FROM --platform="linux/amd64" debian:bullseye
+FROM --platform="linux/amd64" debian:bookworm
 ARG MAINTAINER
 ARG WEBSITE
 ARG DESCRIPTION
