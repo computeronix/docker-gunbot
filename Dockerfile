@@ -59,7 +59,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "subjectAltName = DNS:localhost\n" >> gunbot/ssl.config \
   #create startup.sh bash script
   && printf "#!/bin/bash\n" > gunbot/startup.sh \
-  #check for Gunbot Beta (${GBBETA})
+  #check for Gunbot Beta (${GBBETA}) directory
   && printf "if [ -f ${GBMOUNT}/${GBBETA} ]; then \n" >> gunbot/startup.sh \
   && printf "	unzip -d ${GBMOUNT} ${GBMOUNT}/${GBBETA}\n" >> gunbot/startup.sh \
   && printf "	mv ${GBMOUNT}/gunthy-linux ${GBINSTALLLOC}\n" >> gunbot/startup.sh \
@@ -74,31 +74,51 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   ln -sf ${GBMOUNT}/localhost.crt ${GBINSTALLLOC}/localhost.crt\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  #check for json directory
-  && printf "if [ ! -d ${GBMOUNT}/json ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}/json\n" >> gunbot/startup.sh \
+  #triple check json directory is linked
+  && printf "if [ -e ${GBINSTALLLOC}/json ] ; then\n" >> gunbot/startup.sh \
+  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "else\n" >> gunbot/startup.sh \
+  && printf "   if [ ! -d ${GBMOUNT}/json ]; then \n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/json\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
+  && printf "   ln -sf ${GBMOUNT}/json ${GBINSTALLLOC}/json\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/json ${GBINSTALLLOC}/json\n" >> gunbot/startup.sh \
-  #check for logs directory
-  && printf "if [ ! -d ${GBMOUNT}/logs ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}/logs\n" >> gunbot/startup.sh \
+  #triple check logs directory is linked
+  && printf "if [ -e ${GBINSTALLLOC}/logs ] ; then\n" >> gunbot/startup.sh \
+  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "else\n" >> gunbot/startup.sh \
+  && printf "   if [ ! -d ${GBMOUNT}/logs ]; then \n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/logs\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
+  && printf "   ln -sf ${GBMOUNT}/logs ${GBINSTALLLOC}/logs\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/logs ${GBINSTALLLOC}/logs\n" >> gunbot/startup.sh \
-  #check for backups directory
-  && printf "if [ ! -d ${GBMOUNT}/backups ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}/backups\n" >> gunbot/startup.sh \
+  #triple check backups directory is linked
+  && printf "if [ -e ${GBINSTALLLOC}/backups ] ; then\n" >> gunbot/startup.sh \
+  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "else\n" >> gunbot/startup.sh \
+  && printf "   if [ ! -d ${GBMOUNT}/backups ]; then \n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/backups\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
+  && printf "   ln -sf ${GBMOUNT}/backups ${GBINSTALLLOC}/backups\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/backups ${GBINSTALLLOC}/backups\n" >> gunbot/startup.sh \
-  #check for customStrategies directory
-  && printf "if [ ! -d ${GBMOUNT}/customStrategies ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
+  #triple check customStrategies directory is linked
+  && printf "if [ -e ${GBINSTALLLOC}/customStrategies ] ; then\n" >> gunbot/startup.sh \
+  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "else\n" >> gunbot/startup.sh \
+  && printf "   if [ ! -d ${GBMOUNT}/customStrategies ]; then \n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
+  && printf "   ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/startup.sh \
-  #check for user_modules directory
-  && printf "if [ ! -d ${GBMOUNT}/user_modules ]; then \n" >> gunbot/startup.sh \
-  && printf "	mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
+  #triple check user_modules directory is linked
+  && printf "if [ -e ${GBINSTALLLOC}/user_modules ] ; then\n" >> gunbot/startup.sh \
+  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "else\n" >> gunbot/startup.sh \
+  && printf "   if [ ! -d ${GBMOUNT}/user_modules ]; then \n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
+  && printf "   ln -sf ${GBMOUNT}/user_modules ${GBINSTALLLOC}/user_modules\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  && printf "ln -sf ${GBMOUNT}/user_modules ${GBINSTALLLOC}/user_modules\n" >> gunbot/startup.sh \
   #check for config.js file
   && printf "if [ ! -f ${GBMOUNT}/config.js ]; then \n" >> gunbot/startup.sh \
   && printf "	cp ${GBINSTALLLOC}/config.js ${GBMOUNT}/config.js\n" >> gunbot/startup.sh \
@@ -132,8 +152,8 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #inject config -> enable https
   && printf "jq '.GUI.https = true' ${GBINSTALLLOC}/config.js > /tmp/config2.js\n" >> gunbot/startup.sh \
-  #inject config -> setup json output -> /opt/gunbot/json
-  && printf "jq '.bot.json_output = \"/opt/gunbot/json\"' /tmp/config2.js > /tmp/config3.js\n" >> gunbot/startup.sh \
+  #inject config -> setup json output -> ${GBINSTALLLOC}/json
+  && printf "jq '.bot.json_output = \"${GBINSTALLLOC}/json\"' /tmp/config2.js > /tmp/config3.js\n" >> gunbot/startup.sh \
   #inject config -> force port 5000
   && printf "jq '.GUI.port = ${GBPORT}' /tmp/config3.js > /tmp/config4.js\n" >> gunbot/startup.sh \
   #inject config -> setup localhost.key
