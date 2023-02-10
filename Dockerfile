@@ -1,3 +1,4 @@
+ARG DEBIANVERSION="bookworm"
 ARG GUNBOTVERSION="latest"
 ARG GITHUBOWNER="GuntharDeNiro"
 ARG GITHUBREPO="BTCT"
@@ -14,7 +15,7 @@ ARG WEBSITE="https://hub.docker.com/r/computeronix/gunbot"
 ARG DESCRIPTION="(Unofficial) Gunbot Docker Container - ${GUNBOTVERSION}"
 
 #SCRATCH WORKSPACE FOR BUILDING IMAGE
-FROM --platform="linux/amd64" debian:bullseye AS gunbot-builder
+FROM --platform="linux/amd64" debian:${DEBIANVERSION} AS gunbot-builder
 ARG GUNBOTVERSION
 ARG GITHUBOWNER
 ARG GITHUBREPO
@@ -178,7 +179,7 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "${GBINSTALLLOC}/runner.sh\n" >> gunbot/startup.sh
 
 #BUILD THE RUN IMAGE
-FROM --platform="linux/amd64" debian:bookworm
+FROM --platform="linux/amd64" debian:${DEBIANVERSION}
 ARG MAINTAINER
 ARG WEBSITE
 ARG DESCRIPTION
