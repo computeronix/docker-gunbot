@@ -110,14 +110,18 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "   fi\n" >> gunbot/startup.sh \
   && printf "   ln -sf ${GBMOUNT}/customStrategies ${GBINSTALLLOC}/customStrategies\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
-  #triple check user_modules directory is linked
+  #triple check user_modules directory is linked and not empty
   && printf "if [ -L ${GBINSTALLLOC}/user_modules ] ; then\n" >> gunbot/startup.sh \
   && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   if [ ! -d ${GBMOUNT}/user_modules ]; then \n" >> gunbot/startup.sh \
   && printf "	     mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
   && printf "   fi\n" >> gunbot/startup.sh \
-  && printf "   ln -sf ${GBMOUNT}/user_modules ${GBINSTALLLOC}/user_modules\n" >> gunbot/startup.sh \
+  && printf "   if [ \$(ls -A ${GBINSTALLLOC}/user_modules 2>/dev/null) ]; then \n" >> gunbot/startup.sh \
+  && printf "	     echo Not empty >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   else\n" >> gunbot/startup.sh \
+  && printf "      ln -sf ${GBMOUNT}/user_modules ${GBINSTALLLOC}/user_modules\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
   && printf "fi\n" >> gunbot/startup.sh \
   #check for config.js file
   && printf "if [ ! -f ${GBMOUNT}/config.js ]; then \n" >> gunbot/startup.sh \
