@@ -58,7 +58,7 @@ If the port, by default **5000**, is open on the host, go to `https://IPofCONTAI
 
 Example with persistent data and port pass-through
 ```bash
-docker run -d computeronix/gunbot:latest -p 5010:5000 -v "/host/directory/to/volume:/mnt/gunbot"
+docker run -d -p 5010:5000 -v "/host/directory/to/volume:/mnt/gunbot" computeronix/gunbot:latest
 ```
 In the above example, Gunbot would be available on `https://IPofCONTAINER:5010` and data would persist on the mounted directory `/host/directory/to/volume`.
 
