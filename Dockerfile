@@ -77,7 +77,11 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #triple check json directory is linked
   && printf "if [ -L ${GBINSTALLLOC}/json ] ; then\n" >> gunbot/startup.sh \
-  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   if [ -d ${GBMOUNT}/json ] ; then\n" >> gunbot/startup.sh \
+  && printf "      echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   else\n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/json\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   if [ ! -d ${GBMOUNT}/json ]; then \n" >> gunbot/startup.sh \
   && printf "	     mkdir ${GBMOUNT}/json\n" >> gunbot/startup.sh \
@@ -86,7 +90,11 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #triple check logs directory is linked
   && printf "if [ -L ${GBINSTALLLOC}/logs ] ; then\n" >> gunbot/startup.sh \
-  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   if [ -d ${GBMOUNT}/logs ] ; then\n" >> gunbot/startup.sh \
+  && printf "      echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   else\n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/logs\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   if [ ! -d ${GBMOUNT}/logs ]; then \n" >> gunbot/startup.sh \
   && printf "	     mkdir ${GBMOUNT}/logs\n" >> gunbot/startup.sh \
@@ -95,7 +103,11 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #triple check backups directory is linked
   && printf "if [ -L ${GBINSTALLLOC}/backups ] ; then\n" >> gunbot/startup.sh \
-  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   if [ -d ${GBMOUNT}/backups ] ; then\n" >> gunbot/startup.sh \
+  && printf "      echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   else\n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/backups\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   if [ ! -d ${GBMOUNT}/backups ]; then \n" >> gunbot/startup.sh \
   && printf "	     mkdir ${GBMOUNT}/backups\n" >> gunbot/startup.sh \
@@ -104,7 +116,11 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #triple check customStrategies directory is linked
   && printf "if [ -L ${GBINSTALLLOC}/customStrategies ] ; then\n" >> gunbot/startup.sh \
-  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   if [ -d ${GBMOUNT}/customStrategies ] ; then\n" >> gunbot/startup.sh \
+  && printf "      echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   else\n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   if [ ! -d ${GBMOUNT}/customStrategies ]; then \n" >> gunbot/startup.sh \
   && printf "	     mkdir ${GBMOUNT}/customStrategies\n" >> gunbot/startup.sh \
@@ -113,7 +129,11 @@ RUN apt-get update && apt-get install -y wget jq unzip \
   && printf "fi\n" >> gunbot/startup.sh \
   #triple check user_modules directory is linked and not empty
   && printf "if [ -L ${GBINSTALLLOC}/user_modules ] ; then\n" >> gunbot/startup.sh \
-  && printf "   echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   if [ -d ${GBMOUNT}/user_modules ] ; then\n" >> gunbot/startup.sh \
+  && printf "      echo Good link >/dev/null \n" >> gunbot/startup.sh \
+  && printf "   else\n" >> gunbot/startup.sh \
+  && printf "	     mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
+  && printf "   fi\n" >> gunbot/startup.sh \
   && printf "else\n" >> gunbot/startup.sh \
   && printf "   if [ ! -d ${GBMOUNT}/user_modules ]; then \n" >> gunbot/startup.sh \
   && printf "	     mkdir ${GBMOUNT}/user_modules\n" >> gunbot/startup.sh \
