@@ -219,6 +219,9 @@ COPY --from=gunbot-builder /tmp/gunbot ${GBINSTALLLOC}
 WORKDIR ${GBINSTALLLOC}
 
 RUN apt-get update && apt-get install -y chrony jq unzip openssl fontconfig \
+  && apt-get upgrade -y \
+  && apt-get autoremove -y \
+  && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* \
   #&& useradd -u 1000 gunbotuser \
   #&& chown -R 1000:1000 "${GBINSTALLLOC}" \
